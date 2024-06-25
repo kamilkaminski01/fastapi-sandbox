@@ -1,0 +1,9 @@
+black==23.7.0
+flake8==6.0.0
+fastapi==0.111.0
+isort==5.10.1
+psycopg2-binary==2.9.9
+mypy==1.4.1
+SQLAlchemy==2.0.31
+sqlalchemy-stubs==0.4
+uvicorn==0.30.0
