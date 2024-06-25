@@ -1,7 +1,7 @@
 from typing import Annotated, List
 
 import models
-from database import SessionLocal, engine, get_db
+from database import engine, get_db
 from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -24,7 +24,9 @@ class QuestionBase(BaseModel):
 
 @app.get("/questions/{question_id}")
 async def read_question(question_id: int, db: db_dependency):
-    result = db.query(models.Questions).filter(models.Questions.id == question_id).first()
+    result = (
+        db.query(models.Questions).filter(models.Questions.id == question_id).first()
+    )
     if not result:
         raise HTTPException(status_code=404, detail="Question not found")
     return result
@@ -48,7 +50,9 @@ async def create_question(question: QuestionBase, db: db_dependency):
 
 @app.get("/choices/{question_id}")
 async def read_choices(question_id: int, db: db_dependency):
-    result = db.query(models.Choices).filter(models.Choices.question_id == question_id).all()
+    result = (
+        db.query(models.Choices).filter(models.Choices.question_id == question_id).all()
+    )
     if not result:
         raise HTTPException(status_code=404, detail="Choices not found")
     return result
